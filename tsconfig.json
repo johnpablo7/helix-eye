@@ -3,6 +3,7 @@
     "module": "NodeNext",
     "target": "ESNext",
     "moduleResolution": "node",
-    "jsx": "react"
+    "jsx": "react",
+    "types": ["node"]
   }
 }

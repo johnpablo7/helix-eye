@@ -1,22 +1,24 @@
-const path = require('path')
-const dotenv = require('dotenv')
-const nodeExternals = require('webpack-node-externals')
+const path = require("path");
+const dotenv = require("dotenv");
+const nodeExternals = require("webpack-node-externals");
 
-dotenv.config()
+dotenv.config();
 
-const mode = process.env.NODE_ENV ?? 'production'
-const isDev = process.env.NODE_ENV !== 'production'
+const mode = process.env.NODE_ENV ?? "production";
+const isDev = process.env.NODE_ENV !== "production";
+// const PORT = process.env.PORT;
 
 module.exports = {
-  name: 'server',
-  entry: './src/server/index.ts',
+  name: "server",
+  entry: "./src/server/index.ts",
   target: "node",
   mode,
-  stats: 'errors-only',
+  // devtool: isDev ? "eval-source-map" : "undefined",
+  stats: "errors-only",
   output: {
-    path: path.join(__dirname, '/dist'),
-    filename: 'index.js',
-    publicPath: '/'
+    path: path.join(__dirname, "/dist"),
+    filename: "index.js",
+    publicPath: "/",
   },
   module: {
     rules: [
@@ -30,16 +32,33 @@ module.exports = {
                 syntax: "typescript",
                 tsx: true,
                 minify: !isDev,
-              }
-            }
-          }
+              },
+            },
+          },
         },
         exclude: /node_modules/,
       },
-    ]
+      // {
+      //   test: /\.ico$/,
+      //   use: [
+      //     {
+      //       loader: "file-loader",
+      //       options: {
+      //         name: '[name].[text]'
+      //       }
+      //     }
+      //   ]
+      // }
+    ],
   },
   externals: [nodeExternals()],
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
-  }
+    extensions: [".tsx", ".ts", ".js"],
+  },
+  // devServer: {
+  //   hot: true,
+  //   port: PORT,
+  //   open: true,
+  //   historyApiFallback: true,
+  // }
 };
