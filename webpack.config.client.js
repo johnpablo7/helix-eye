@@ -1,23 +1,23 @@
-const path = require('path')
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const dotenv = require('dotenv')
+const path = require("path");
+// const HTMLWebpackPlugin = require('html-webpack-plugin');
+const dotenv = require("dotenv");
 
-dotenv.config()
+dotenv.config();
 
-const mode = process.env.NODE_ENV ?? 'production'
-const isDev = process.env.NODE_ENV !== 'production'
-const PORT = process.env.PORT
+const mode = process.env.NODE_ENV ?? "production";
+const isDev = process.env.NODE_ENV !== "production";
+const PORT = process.env.PORT;
 
 module.exports = {
-  name: 'client',
-  entry: './src/app/index.tsx',
+  name: "client",
+  entry: "./src/app/index.tsx",
   mode,
-  devtool: isDev ? 'eval-source-map' : undefined,
-  stats: 'errors-only',
+  devtool: isDev ? "eval-source-map" : undefined,
+  stats: "errors-only",
   output: {
-    path: path.join(__dirname, '/dist'),
-    filename: 'app.js',
-    publicPath: '/'
+    path: path.join(__dirname, "/dist"),
+    filename: "app.js",
+    publicPath: "/",
   },
   module: {
     rules: [
@@ -31,9 +31,9 @@ module.exports = {
                 syntax: "typescript",
                 tsx: true,
                 minify: !isDev,
-              }
-            }
-          }
+              },
+            },
+          },
         },
         exclude: /node_modules/,
       },
@@ -41,27 +41,27 @@ module.exports = {
         test: /\.ico$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: '[name].[ext]',
+              name: "[name].[ext]",
             },
           },
         ],
       },
-    ]
+    ],
   },
   plugins: [
-    new HTMLWebpackPlugin({
-      template: './src/public/index.html',
-    })
+    // new HTMLWebpackPlugin({
+    //   template: "./src/public/index.html",
+    // }),
   ],
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: [".tsx", ".ts", ".js"],
   },
   devServer: {
     hot: true,
     port: PORT,
     open: true,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
 };
